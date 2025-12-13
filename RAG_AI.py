@@ -1,6 +1,11 @@
+import os
 import streamlit as st
 import chromadb
 from openai import OpenAI
+
+
+api_key = os.environ.get("OPENAI_API_KEY")
+client_openai = OpenAI(api_key=api_key)
 
 # Initialize OpenAI
 client_openai = OpenAI()
