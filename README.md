@@ -2,7 +2,7 @@
 Ask a question and the assistant will search the documents and give an answer with citations.
 
 
-**View Live: https://shorturl.at/vqnvR**
+**View Live: https://ragassistant0trial.streamlit.app/**
 
 
 <img width="1760" height="822" alt="image" src="https://github.com/user-attachments/assets/93e7bdd9-cf30-4dbe-96bc-3ec417f00b33" />
