@@ -23,7 +23,7 @@ collection = client_chroma.get_or_create_collection(
     metadata={"hnsw:space": "cosine"}
 )
 
-st.title("📚 RAG Assistant")
+st.title("Similarity Search App")
 st.markdown("Ask a question and the assistant will search documents and answer with citations.")
 
 n_results = st.sidebar.number_input("Number of results", min_value=1, max_value=10, value=1)
