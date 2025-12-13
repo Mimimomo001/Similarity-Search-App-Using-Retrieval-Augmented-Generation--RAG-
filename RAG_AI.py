@@ -1,14 +1,10 @@
-import os
 import streamlit as st
 import chromadb
 from openai import OpenAI
 
-
-api_key = os.environ.get("OPENAI_API_KEY")
+# Use Streamlit secrets for the OpenAI key
+api_key = st.secrets["OPENAI_API_KEY"]
 client_openai = OpenAI(api_key=api_key)
-
-# Initialize OpenAI
-client_openai = OpenAI()
 
 def get_completion(prompt):
     response = client_openai.chat.completions.create(
@@ -27,10 +23,11 @@ collection = client_chroma.get_or_create_collection(
     metadata={"hnsw:space": "cosine"}
 )
 
-st.title("Similarity Search App")
-st.markdown("Ask a question and the assistant will search the documents and give an answer with citations.")
-st.sidebar.number_input("Number of results", min_value=1, max_value=10, value=1, key="n_results")
-user_question = st.text_area("Your question", key="user_question")
+st.title("📚 RAG Assistant")
+st.markdown("Ask a question and the assistant will search documents and answer with citations.")
+
+n_results = st.sidebar.number_input("Number of results", min_value=1, max_value=10, value=1)
+user_question = st.text_area("Your question")
 
 # Add example documents if empty
 if collection.count() == 0:
@@ -48,10 +45,9 @@ if collection.count() == 0:
         ids=["doc1", "doc2", "doc3"]
     )
 
-if st.button("Get Answers") and user_question.strip():
-    n_results = st.session_state.n_results
+if st.button("Get Answer") and user_question.strip():
     st.write(f"**Question:** {user_question}")
-    st.write(f"**Results:** {n_results}")
+    st.write(f"**Number of Results:** {n_results}")
 
     results = collection.query(
         query_texts=[user_question],
